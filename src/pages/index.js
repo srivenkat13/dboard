@@ -1,6 +1,11 @@
 import Menu from "@/components/Menu";
-import Toolbar from "@/components/Toolbar";
+import Toolbox from "@/components/Toolbar";
 
 export default function Home() {
-  return <Menu />;
+  return (
+    <>
+      <Menu />
+      <Toolbox />
+    </>
+  );
 }

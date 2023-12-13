@@ -1,0 +1,32 @@
+.toolBarContainer {
+  @apply p-3 absolute top-1/4 left-5 w-52 rounded-md;
+  box-shadow: theme("colors.shadow1");
+  border: 1px solid theme("colors.border1");
+
+  .toolItems {
+    @apply m-3;
+
+    .toolText {
+      font-size: 11px;
+      font-weight: 600;
+      color: theme("colors.text1");
+    }
+
+    .itemContainer {
+      @apply flex justify-between mt-2;
+
+      .box {
+        @apply h-5 w-5 mr-1 rounded-sm cursor-pointer;
+
+        &:hover,
+        &.active {
+          border: 1.5px solid theme("colors.border2");
+          box-shadow: theme("colors.shadow2");
+        }
+      }
+      .slider {
+        @apply flex-1  cursor-pointer;
+      }
+    }
+  }
+}
