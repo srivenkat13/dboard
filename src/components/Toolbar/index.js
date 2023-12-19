@@ -5,10 +5,9 @@ import { COLORS, MENU_ITEMS } from "@/constants";
 import { changeBrushSize, changeColor } from "@/slice/toolbarSlice";
 
 const Toolbar = () => {
-
   const dispatch = useDispatch();
   const activeMenuItem = useSelector((state) => state.menu.activeMenuItem);
-  const { color } = useSelector((state) => state.toolbar[activeMenuItem]);
+  const { color, size } = useSelector((state) => state.toolbar[activeMenuItem]);
   const showColorPanel = activeMenuItem === MENU_ITEMS.PENCIL;
 
   const updateBrushSize = (e) => {
@@ -84,15 +83,18 @@ const Toolbar = () => {
       )}
 
       <div className={styles.toolItems}>
-        <h4 className={styles.toolText}>Brush size : {activeMenuItem}</h4>
+        <h4 className={styles.toolText}>
+        {showColorPanel ? "Brush" : "Eraser"} size
+        </h4>
         <div className={styles.itemContainer}>
           <input
             className={styles.slider}
             type="range"
-            min={2}
-            max={20}
-            step={2}
+            min={1}
+            max={10}
+            step={1}
             onChange={updateBrushSize}
+            value={size}
           />
         </div>
       </div>
