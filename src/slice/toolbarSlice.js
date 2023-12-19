@@ -3,7 +3,7 @@ import { COLORS, MENU_ITEMS } from "@/constants";
 
 const initialState = {
   [MENU_ITEMS.PENCIL]: {
-    color: COLORS.YELLOW,
+    color: COLORS.ORANGE,
     size: 2,
   },
   [MENU_ITEMS.ERASER]: {
