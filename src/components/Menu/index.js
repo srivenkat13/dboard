@@ -11,13 +11,18 @@ import {
 
 import styles from "./index.module.css";
 import { MENU_ITEMS } from "@/constants";
-import { menuItemClick } from "@/slice/menuSlice";
+import { menuItemClick, actionItemClick } from "@/slice/menuSlice";
 
 const Menu = () => {
   const dispatch = useDispatch();
   const activeMenuItem = useSelector((state) => state.menu.activeMenuItem);
+
   const handleMenuClick = (itemClicked) => {
     dispatch(menuItemClick(itemClicked));
+  };
+
+  const handleActionClick = (itemClicked) => {
+    dispatch(actionItemClick(itemClicked));
   };
   return (
     <div className={styles.menuContainer}>
@@ -41,13 +46,28 @@ const Menu = () => {
       >
         <FontAwesomeIcon className={styles.icon} icon={faEraser} />
       </div>
-      <div className={styles.iconWrapper}>
+      <div
+        className={styles.iconWrapper}
+        onClick={() => {
+          handleActionClick(MENU_ITEMS.UNDO);
+        }}
+      >
         <FontAwesomeIcon className={styles.icon} icon={faRotateLeft} />
       </div>
-      <div className={styles.iconWrapper}>
+      <div
+        className={styles.iconWrapper}
+        onClick={() => {
+          handleActionClick(MENU_ITEMS.REDO);
+        }}
+      >
         <FontAwesomeIcon className={styles.icon} icon={faRotateRight} />
       </div>
-      <div className={styles.iconWrapper}>
+      <div
+        className={styles.iconWrapper}
+        onClick={() => {
+          handleActionClick(MENU_ITEMS.DOWNLOAD);
+        }}
+      >
         <FontAwesomeIcon className={styles.icon} icon={faFileArrowDown} />
       </div>
     </div>

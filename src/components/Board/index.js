@@ -1,12 +1,30 @@
 import { useLayoutEffect, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+import { actionItemClick } from "@/slice/menuSlice";
+import { MENU_ITEMS } from "@/constants";
 
 const Board = () => {
+  const dispatch = useDispatch();
   const canvasRef = useRef(null);
   const shouldDraw = useRef(false);
-  const activeMenuItem = useSelector((state) => state.menu.activeMenuItem);
+  const { activeMenuItem, actionMenuItem } = useSelector((state) => state.menu);
   const { color, size } = useSelector((state) => state.toolbar[activeMenuItem]);
 
+  useEffect(() => {
+    if (!canvasRef.current) return;
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
+
+    if (actionMenuItem === MENU_ITEMS.DOWNLOAD) {
+      const URL = canvas.toDataURL();
+      const anchor = document.createElement("a");
+      anchor.href = URL;
+      anchor.download = `sketch.png`;
+      anchor.click();
+    }
+    dispatch(actionItemClick(null));
+  }, [actionMenuItem, dispatch]);
   //update canvas
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -61,7 +79,7 @@ const Board = () => {
       canvas.removeEventListener("mouseup", handleMouseUp);
     };
   }, []);
-  console.log(activeMenuItem, color, size);
+  // console.log(activeMenuItem, color, size);
   return <canvas ref={canvasRef}></canvas>;
 };
 
