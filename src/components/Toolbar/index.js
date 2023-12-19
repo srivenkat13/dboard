@@ -1,8 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import cx from "classnames";
+
 import styles from "./index.module.css";
 import { COLORS, MENU_ITEMS } from "@/constants";
 import { changeBrushSize, changeColor } from "@/slice/toolbarSlice";
+
+import { socket } from "@/socket";
 
 const Toolbar = () => {
   const dispatch = useDispatch();
@@ -12,10 +15,12 @@ const Toolbar = () => {
 
   const updateBrushSize = (e) => {
     dispatch(changeBrushSize({ item: activeMenuItem, size: e.target.value }));
+    socket.emit("changeConfig", {color, size:e.target.value})
   };
-
+  
   const updateColor = (newColor) => {
     dispatch(changeColor({ item: activeMenuItem, color: newColor }));
+    socket.emit("changeConfig", {color:newColor, size})
   };
 
   return (
