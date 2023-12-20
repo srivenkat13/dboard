@@ -39,7 +39,10 @@ const Board = () => {
         historyPointer.current += 1;
       const imageData = drawings.current[historyPointer.current];
       context.putImageData(imageData, 0, 0);
+    } else if (actionMenuItem === MENU_ITEMS.CLEAR) {
+      context.clearRect(0, 0, canvas.width, canvas.height);
     }
+
     dispatch(actionItemClick(null));
   }, [actionMenuItem, dispatch]);
   //update canvas

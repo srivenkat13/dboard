@@ -7,6 +7,7 @@ import {
   faPencil,
   faRotateLeft,
   faRotateRight,
+  faBroom,
 } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./index.module.css";
@@ -45,6 +46,14 @@ const Menu = () => {
         }}
       >
         <FontAwesomeIcon className={styles.icon} icon={faEraser} />
+      </div>
+      <div
+        className={styles.iconWrapper}
+        onClick={() => {
+          handleActionClick(MENU_ITEMS.CLEAR);
+        }}
+      >
+        <FontAwesomeIcon className={styles.icon} icon={faBroom} />
       </div>
       <div
         className={styles.iconWrapper}

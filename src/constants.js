@@ -5,12 +5,13 @@ const COLORS = {
   GREEN: "green",
   YELLOW: "yellow",
   ORANGE: "orange",
-  WHITE:'white'
+  WHITE: "white",
 };
 
 const MENU_ITEMS = {
   PENCIL: "pencil",
   ERASER: "eraser",
+  CLEAR: "clear",
   UNDO: "undo",
   REDO: "redo",
   DOWNLOAD: "download",
