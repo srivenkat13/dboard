@@ -6,7 +6,7 @@ import { MENU_ITEMS } from "@/constants";
 
 import { socket } from "@/socket";
 
-const Board = () => {
+const Board = ({ roomId }) => {
   const dispatch = useDispatch();
   const canvasRef = useRef(null);
   const shouldDraw = useRef(false);
@@ -85,13 +85,16 @@ const Board = () => {
     };
     const handleMouseDown = (e) => {
       shouldDraw.current = true;
-      beginPath(e.clientX, e.clientY);
-      socket.emit("beginPath", { x: e.clientX, y: e.clientY });
+      const rect = canvas.getBoundingClientRect();
+      beginPath(e.clientX-rect.left, e.clientY-rect.top);
+      socket.emit("beginPath", { x: e.clientX, y: e.clientY ,roomId});
+      console.log("beginPath", { x: e.clientX, y: e.clientY });
     };
     const handleMouseMove = (e) => {
       if (!shouldDraw.current) return;
-      drawLine(e.clientX, e.clientY);
-      socket.emit("drawLine", { x: e.clientX, y: e.clientY });
+      const rect = canvas.getBoundingClientRect();
+      drawLine(e.clientX-rect.left, e.clientY-rect.top);
+      socket.emit("drawLine", { x: e.clientX, y: e.clientY,roomId });
     };
     const handleMouseUp = (e) => {
       shouldDraw.current = false;
@@ -105,13 +108,25 @@ const Board = () => {
     canvas.addEventListener("mouseup", handleMouseUp);
 
     const handleRemoteBegin = (path) => {
-      beginPath(path.x, path.y);
+      if (path.roomId === roomId) {
+        console.log("beginPath received", path);
+        beginPath(path.x, path.y);
+      }
     };
     const handleRemoteDraw = (path) => {
-      drawLine(path.x, path.y);
+      if (path.roomId === roomId) drawLine(path.x, path.y);
     };
+    const handleRemoteChangeConfig = (config) => {
+      if (config.roomId === roomId) {
+        context.strokeStyle = config.color;
+        context.lineWidth = config.size;
+      }
+    };
+
+    socket.emit("join-room", roomId);
     socket.on("beginPath", handleRemoteBegin);
     socket.on("drawLine", handleRemoteDraw);
+    socket.on("changeConfig", handleRemoteChangeConfig);
 
     return () => {
       canvas.removeEventListener("mousedown", handleMouseDown);
@@ -120,8 +135,9 @@ const Board = () => {
 
       socket.off("beginPath", handleRemoteBegin);
       socket.off("drawLine", handleRemoteDraw);
+      socket.off("changeConfig", handleRemoteChangeConfig);
     };
-  }, []);
+  }, [roomId]);
   // console.log(activeMenuItem, color, size);
   return <canvas ref={canvasRef}></canvas>;
 };

@@ -1,0 +1,40 @@
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.buttonPrimary {
+  background-color: #6965db;
+}
+
+.buttonPrimary:hover {
+  background-color: #6965ae;
+}
+
+.copyButton {
+  background-color: #34d399;
+  transition: transform 0.5s ease-in-out;
+}
+
+.copyButton:active {
+  transform: scale(0.8);
+}
+
+.textWhite {
+  color: white;
+}
