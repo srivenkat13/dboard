@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { COLORS, MENU_ITEMS } from "@/constants";
 
 const initialState = {
+  [null]: {},
   [MENU_ITEMS.PENCIL]: {
     color: COLORS.ORANGE,
     size: 2,
