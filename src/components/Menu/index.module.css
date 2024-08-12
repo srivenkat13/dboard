@@ -1,5 +1,5 @@
 .menuContainer {
-  @apply absolute flex  px-5 py-1 justify-between w-1/4 left-1/2 top-10 rounded-md;
+  @apply absolute flex  px-5 py-1  justify-between left-[40%]  md:w-1/4 md:left-1/2 mt-4 rounded-lg;
 
   border: 1px solid theme("colors.border1");
   transform: translateX(-50%);

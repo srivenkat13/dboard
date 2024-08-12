@@ -38,10 +38,10 @@ const Share = () => {
   };
 
   return (
-    <div className="flex justify-end">
+    <div className="flex justify-end ">
       <button
         onClick={handleCreateSession}
-        className={`${styles.buttonPrimary} ${styles.textWhite} py-2 px-4 rounded-full m-4 `}
+        className={`${styles.buttonPrimary} ${styles.textWhite} md:py-2 md:px-4  py-1 px-1 rounded-full md:m-4  mt-6 m-1 `}
       >
         Share {"     "}
         <FontAwesomeIcon icon={faShare} />
